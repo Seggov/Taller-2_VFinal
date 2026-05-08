@@ -2,7 +2,7 @@
 
 **Vale Castillo** - RUT - Ingeniería en Tecnologías de la Información
 
-**Pedro Segovia** - RUT - Ingeniería en Tecnologías de la Información
+**Pedro Segovia** - 21672694-4 - Ingeniería en Tecnologías de la Información
 
 ---
 
