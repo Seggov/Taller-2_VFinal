@@ -1,7 +1,8 @@
 # Taller 2 — Simulador Pokémon en Java
 
 **Vale Castillo** - RUT - Ingeniería en Tecnologías de la Información
-**Pedro Segovia** - RUT - Ingeniería en Tecnologías de la Información  
+
+**Pedro Segovia** - RUT - Ingeniería en Tecnologías de la Información
 
 ---
 
