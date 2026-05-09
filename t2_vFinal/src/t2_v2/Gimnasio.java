@@ -3,6 +3,7 @@ package t2_v2;
 import java.util.ArrayList;
 
 public class Gimnasio {
+    // atributos
     private int numero; 
     private String lider; 
     private String estado; 
