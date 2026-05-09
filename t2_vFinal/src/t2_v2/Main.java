@@ -29,14 +29,14 @@ public class Main {
     	habitats.add("Prado");
     	habitats.add("Mar");
     	
-        cargarArchivos(); 
+        cargarArchivos("Pokedex.txt"); 
         menuInicial(); 
     }
 
     
     // lee los txt guardados
-    private static void cargarArchivos() throws FileNotFoundException {
-        File file = new File("Pokedex.txt");
+    private static void cargarArchivos(String string) throws FileNotFoundException {
+        File file = new File(string);
         Scanner Scaner=new Scanner(file);
         		
         		while(Scaner.hasNextLine()) {
@@ -73,6 +73,7 @@ public class Main {
                 altoMandos.add(new AltoMando(Integer.parseInt(pts[0]), pts[1], eq)); 
             }
         } catch (Exception e) {} 
+        Scaner.close();
     }
 
     // carga menu de inicio
@@ -244,12 +245,15 @@ public class Main {
         System.out.println("1) Cambiar Pokémon. 2) Salir."); 
         int op = leerNumero(); 
         if(op == 1) {
-            System.out.println("Elija numero 1:"); 
+            System.out.print("Elija Primer numero:"); 
             int n1 = leerNumero() - 1; 
-            System.out.println("Elija numero 2:"); 
+            System.out.println("Elija Segundo numero:"); 
             int n2 = leerNumero() - 1; 
             if(n1 >= 0 && n2 >= 0 && n1 < lista.size() && n2 < lista.size()) {
                 jugador.intercambiar(n1, n2); 
+                System.out.println();
+                System.out.println("El cambio ha sido exitoso");
+                System.out.println();
             }
         }
     }
