@@ -136,20 +136,22 @@ public class Main {
             System.out.print("Ingrese Opcion: "); 
             String op = sc.nextLine(); 
 
-            if(op.equals("1")) revisarEquipo(); 
-            else if(op.equals("2")) capturar(); 
-            else if(op.equals("3")) accesoPC(); 
-            else if(op.equals("4")) retarGimnasio(); 
-            else if(op.equals("5")) retarAltoMando(); 
-            else if(op.equals("6")) {
-                jugador.curarTodos(); 
-                System.out.println("Tu equipo se ha recuperado!"); 
-            }
-            else if(op.equals("7")) guardarPartida(); 
-            else if(op.equals("8")) {
-                guardarPartida(); 
-                System.out.println("Nos vemos entrenador..."); 
-                System.exit(0); 
+            switch(op) {
+                case "1" -> revisarEquipo(); 
+                case "2" -> capturar(); 
+                case "3" -> accesoPC(); 
+                case "4" -> retarGimnasio(); 
+                case "5" -> retarAltoMando(); 
+                case "6" -> {
+                    jugador.curarTodos(); 
+                    System.out.println("Tu equipo se ha recuperado!"); 
+                }
+                case "7" -> guardarPartida(); 
+                case "8" -> {
+                    guardarPartida(); 
+                    System.out.println("Nos vemos entrenador..."); 
+                    System.exit(0); 
+                }
             }
         }
     }
