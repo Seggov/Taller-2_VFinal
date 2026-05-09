@@ -111,7 +111,7 @@ public class Main {
 
     // guarda progreso en txt
     private static void guardarPartida() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("Registros.txt"))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("Registros.txt"))) { 
             bw.write(jugador.getNombre() + ";" + jugador.getUltimoLider() + "\n"); 
             // escribe cada bicho
             for(Pokemon p : jugador.getPokemons()) {
@@ -166,7 +166,7 @@ public class Main {
         }
     }
 
-    // logica atrapar bicho salvage
+    // logica atrapar bicho salvaje
     private static void capturar() {
         System.out.println("Donde deseas ir a explorar?\nZonas disponibles:"); 
          System.out.println();
@@ -255,7 +255,7 @@ public class Main {
         }
     }
 
-    // pelea con jefes finales
+    // pelea con jefes
     private static void retarAltoMando() {
         boolean ganoTodos = true; 
         for(Gimnasio g : gimnasios) {
@@ -304,6 +304,6 @@ public class Main {
             Pokemon base = buscarEnPokedex(n); 
             if(base != null) res.add(new Pokemon(base, "Vivo")); 
         }
-        return res; 
+        return res;  
     }
 }
