@@ -169,8 +169,8 @@ public class Main {
     // logica atrapar bicho salvage
     private static void capturar() {
         System.out.println("Donde deseas ir a explorar?\nZonas disponibles:"); 
-        for(int i=0; i<habitats.size(); i++) System.out.println((i+1) + ") " + habitats.get(i)); 
-        System.out.println((habitats.size()+1) + ") Volver al menu."); 
+         System.out.println();
+         
         
         System.out.print("Ingrese Zona: "); 
         int z = leerNumero() - 1; 
