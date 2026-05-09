@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
 
+
 public class Main {
     private static ArrayList<Pokemon> pokedex = new ArrayList<>(); 
     private static ArrayList<String> habitats = new ArrayList<>(); 
@@ -22,6 +23,7 @@ public class Main {
         menuInicial(); 
     }
 
+    
     // lee los txt guardados
     private static void cargarArchivos() {
         try (Scanner lector = new Scanner(new File("Pokedex.txt"))) {
@@ -63,7 +65,7 @@ public class Main {
     // carga menu de inicio
     private static void menuInicial() {
         // repite menu hasta entrar
-        while(true) {
+        while(true) { // aqui
             System.out.println("1) Continuar."); 
             System.out.println("2) Nueva Partida."); 
             System.out.println("3) Salir."); 
