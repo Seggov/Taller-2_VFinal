@@ -29,13 +29,13 @@ public class Main {
     	habitats.add("Prado");
     	habitats.add("Mar");
     	
-        cargarArchivos("Pokedex.txt","Gimnasios.txt", "Alto Mando.txt"); 
+        cargarArchivos("Pokedex.txt","Gimnasios.txt", "Alto Mando.txt","Habitats.txt"); 
         menuInicial(); 
     }
 
     
     // lee los txt guardados
-    private static void cargarArchivos(String string, String stringdos, String string3) throws FileNotFoundException {
+    private static void cargarArchivos(String string, String stringdos, String stringtres, String stringcuatro) throws FileNotFoundException {
         File file = new File(string);
         Scanner Scaner=new Scanner(file);
         		
@@ -47,35 +47,45 @@ public class Main {
                 Integer.parseInt(pts[3]), Integer.parseInt(pts[4]), Integer.parseInt(pts[5]), 
                 Integer.parseInt(pts[6]), Integer.parseInt(pts[7]), Integer.parseInt(pts[8]), pts[9])); 
             }
+        		 Scaner.close();
          
 
-        try (Scanner lector = new Scanner(new File("Habitats.txt"))) {
-            // lee zonas linea linea
-            while (lector.hasNextLine()) habitats.add(lector.nextLine()); 
-        } catch (Exception e) {} 
+        
 
-        	File fila = new File(stringdos);
-        	Scanner  scann=new Scanner(fila);
+        File fila = new File(stringdos);
+        Scanner  scann=new Scanner(fila);
             // lee gym linea linea
-            while (scann.hasNextLine()) {
+        while (scann.hasNextLine()) {
                 String[] pts = scann.nextLine().split(";"); 
                 ArrayList<String> eq = new ArrayList<>(); 
                 for(int i=4; i < pts.length; i++) eq.add(pts[i]); 
                 gimnasios.add(new Gimnasio(Integer.parseInt(pts[0]), pts[1], pts[2], eq)); 
-            }
+            }scann.close();
          
-
-        try (Scanner lector = new Scanner(new File("Alto Mando.txt"))) {
+            
+            File fil = new File(stringtres);
+        	Scanner  scanner=new Scanner(fil);
             // lee jefes linea linea
-            while (lector.hasNextLine()) {
-                String[] pts = lector.nextLine().split(";"); 
+            while (scanner.hasNextLine()) {
+                String[] pts = scanner.nextLine().split(";"); 
                 ArrayList<String> eq = new ArrayList<>(); 
                 for(int i=2; i < pts.length; i++) eq.add(pts[i]); 
                 altoMandos.add(new AltoMando(Integer.parseInt(pts[0]), pts[1], eq)); 
-            }
-        } catch (Exception e) {} 
-        Scaner.close();
-    }
+            }scanner.close();
+            
+            File files = new File(stringcuatro);
+            Scanner Scatter=new Scanner(files);
+                // lee zonas linea linea
+                while (Scatter.hasNextLine()) 
+                	habitats.add(Scatter.nextLine());
+               
+                
+                
+                
+            }  
+       
+       
+
 
     // carga menu de inicio
     private static void menuInicial() {
@@ -186,15 +196,7 @@ public class Main {
     private static void capturar() {
         System.out.println("Donde deseas ir a explorar?\nZonas disponibles:"); 
         
-        System.out.println();
-        System.out.println("1) Lago");
         
-        System.out.println("2) Cueva");
-        System.out.println("3) Montaña");
-        System.out.println("4) Bosque");
-        System.out.println("5) Prado");
-        System.out.println("6) Mar");
-        System.out.println("7) Volver al menu.");
         System.out.print("Ingrese Zona: ");
         int z = leerNumero(); 
         if(z == 7) {
@@ -274,6 +276,7 @@ public class Main {
         if(op > 0) {
             if(!gimnasios.get(op-1).getEstado().equals("Derrotado")) {
                 System.out.println("Calmado Entrenador!!! No puedes retar a " + gimnasios.get(op).getLider() + " sin haber derrotado a los lideres anteriores!!"); 
+                System.out.println();
                 return; 
             }
         }
