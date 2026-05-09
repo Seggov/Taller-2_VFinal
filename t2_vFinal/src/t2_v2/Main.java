@@ -1,6 +1,7 @@
 package t2_v2;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.Random;
 public class Main {
     private static ArrayList<Pokemon> pokedex = new ArrayList<>(); 
     private static ArrayList<String> habitats = new ArrayList<>(); 
+    
     private static ArrayList<Gimnasio> gimnasios = new ArrayList<>(); 
     private static ArrayList<AltoMando> altoMandos = new ArrayList<>(); 
     private static Jugador jugador; 
@@ -18,23 +20,34 @@ public class Main {
     private static Random rand = new Random(); 
 
     // inicia todo el programa
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+    	
+    	habitats.add("Lago");
+    	habitats.add("Cueva");
+    	habitats.add("Montaña");
+    	habitats.add("Bosque");
+    	habitats.add("Prado");
+    	habitats.add("Mar");
+    	
         cargarArchivos(); 
         menuInicial(); 
     }
 
     
     // lee los txt guardados
-    private static void cargarArchivos() {
-        try (Scanner lector = new Scanner(new File("Pokedex.txt"))) {
-            // lee pokedex linea linea
-            while (lector.hasNextLine()) {
-                String[] pts = lector.nextLine().split(";"); 
+    private static void cargarArchivos() throws FileNotFoundException {
+        File file = new File("Pokedex.txt");
+        Scanner Scaner=new Scanner(file);
+        		
+        		while(Scaner.hasNextLine()) {
+        		String Linea=Scaner.nextLine();
+                String[] pts = Linea.split(";"); 
+                
                 pokedex.add(new Pokemon(pts[0], pts[1], Double.parseDouble(pts[2]), 
                 Integer.parseInt(pts[3]), Integer.parseInt(pts[4]), Integer.parseInt(pts[5]), 
                 Integer.parseInt(pts[6]), Integer.parseInt(pts[7]), Integer.parseInt(pts[8]), pts[9])); 
             }
-        } catch (Exception e) {} 
+         
 
         try (Scanner lector = new Scanner(new File("Habitats.txt"))) {
             // lee zonas linea linea
@@ -169,15 +182,29 @@ public class Main {
     // logica atrapar bicho salvaje
     private static void capturar() {
         System.out.println("Donde deseas ir a explorar?\nZonas disponibles:"); 
-         System.out.println();
-         
         
-        System.out.print("Ingrese Zona: "); 
-        int z = leerNumero() - 1; 
-        if(z < 0 || z >= habitats.size()) return; 
+        System.out.println();
+        System.out.println("1) Lago");
         
-        String hab = habitats.get(z); 
+        System.out.println("2) Cueva");
+        System.out.println("3) Montaña");
+        System.out.println("4) Bosque");
+        System.out.println("5) Prado");
+        System.out.println("6) Mar");
+        System.out.println("7) Volver al menu.");
+        System.out.print("Ingrese Zona: ");
+        int z = leerNumero(); 
+        if(z == 7) {
+        	return;
+        			}
+        if(z < 1 || z > 6) {
+            System.out.println("Zona invalida");
+            return;
+        }
+        
+        String hab = habitats.get(z - 1);
         ArrayList<Pokemon> posibles = new ArrayList<>(); 
+        
         // filtra bichos por zona
         for(Pokemon p : pokedex) {
             if(p.getHabitat().equalsIgnoreCase(hab)) posibles.add(p); 
@@ -206,6 +233,7 @@ public class Main {
             if(jugador.getEquipo().size() <= 6) System.out.println(salvaje.getNombre() + " ha sido agregado a tu equipo!"); 
         }
     }
+    
 
     // logica del pc
     private static void accesoPC() {
