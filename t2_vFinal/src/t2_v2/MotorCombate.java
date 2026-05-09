@@ -11,6 +11,7 @@ public class MotorCombate {
         Pokemon actualRival = clonePokemon(rivales.get(indiceRival)); 
         
         System.out.println("El rival saca a " + actualRival.getNombre() + "!"); 
+        System.out.println();
         Pokemon actualJugador = elegirPokemon(j, sc); 
         if(actualJugador == null) return false; 
         
@@ -22,7 +23,8 @@ public class MotorCombate {
             System.out.println("1) Atacar"); 
             System.out.println("2) Cambiar de pokemon"); 
             System.out.println("3) Rendirse"); 
-            
+            System.out.println();
+            System.out.print("Ingrese Opcion: ");
             int op = leerOpcion(sc); 
             if (op == 1) {
                 boolean ganaJugador = simularChoque(actualJugador, actualRival); 
@@ -32,6 +34,7 @@ public class MotorCombate {
                     if(indiceRival < rivales.size()) {
                         actualRival = clonePokemon(rivales.get(indiceRival)); 
                         System.out.println("El rival saca a " + actualRival.getNombre() + "!"); 
+                        System.out.println();
                     }
                 } else {
                     actualJugador.setEstado("Debilitado"); 
@@ -48,6 +51,7 @@ public class MotorCombate {
         
         if (!j.tieneVivos()) {
             System.out.println("Te has quedado sin pokemons en tu equipo!"); 
+            System.out.println();
             System.out.println("Volviendo al menu..."); 
             return false; 
         }

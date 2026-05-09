@@ -29,13 +29,13 @@ public class Main {
     	habitats.add("Prado");
     	habitats.add("Mar");
     	
-        cargarArchivos("Pokedex.txt"); 
+        cargarArchivos("Pokedex.txt","Gimnasios.txt", "Alto Mando.txt"); 
         menuInicial(); 
     }
 
     
     // lee los txt guardados
-    private static void cargarArchivos(String string) throws FileNotFoundException {
+    private static void cargarArchivos(String string, String stringdos, String string3) throws FileNotFoundException {
         File file = new File(string);
         Scanner Scaner=new Scanner(file);
         		
@@ -54,15 +54,16 @@ public class Main {
             while (lector.hasNextLine()) habitats.add(lector.nextLine()); 
         } catch (Exception e) {} 
 
-        try (Scanner lector = new Scanner(new File("Gimnasios.txt"))) {
+        	File fila = new File(stringdos);
+        	Scanner  scann=new Scanner(fila);
             // lee gym linea linea
-            while (lector.hasNextLine()) {
-                String[] pts = lector.nextLine().split(";"); 
+            while (scann.hasNextLine()) {
+                String[] pts = scann.nextLine().split(";"); 
                 ArrayList<String> eq = new ArrayList<>(); 
                 for(int i=4; i < pts.length; i++) eq.add(pts[i]); 
                 gimnasios.add(new Gimnasio(Integer.parseInt(pts[0]), pts[1], pts[2], eq)); 
             }
-        } catch (Exception e) {} 
+         
 
         try (Scanner lector = new Scanner(new File("Alto Mando.txt"))) {
             // lee jefes linea linea
@@ -96,6 +97,7 @@ public class Main {
                 System.out.println("Bienvenido " + nom + "!!"); 
                 menuPrincipal(); 
             } else if(op.equals("3")) {
+            	System.exit(0); 
                 break; 
             }
         }
