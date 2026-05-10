@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class Main {
     private static ArrayList<Pokemon> pokedex = new ArrayList<>(); 
-    private static ArrayList<String> habitats = new ArrayList<>(); //Lista de habitats donde se puede ir a capturar pokemones.
+    private static ArrayList<Habitat> habitats = new ArrayList<>();
     
     private static ArrayList<Gimnasio> gimnasios = new ArrayList<>(); //Lista que albergará los gimaniso a los que se tiene que derrotar.
     private static ArrayList<AltoMando> altoMandos = new ArrayList<>(); 
@@ -31,21 +31,21 @@ public class Main {
     private static void cargarArchivos(String string, String stringdos, String stringtres, String stringcuatro) throws FileNotFoundException {
         //Abrir el archivo pokedex y leerlo.
         File file = new File(string);
-        Scanner Scaner=new Scanner(file);
+        Scanner scaner = new Scanner(file);
         		
-        		while(Scaner.hasNextLine()) {
-        		String Linea=Scaner.nextLine();
-                String[] pts = Linea.split(";"); 
+	        while(scaner.hasNextLine()) {
+	            String linea = scaner.nextLine();
+	            String[] pts = linea.split(";");
                 
                 pokedex.add(new Pokemon(pts[0], pts[1], Double.parseDouble(pts[2]),//Crear instancia de pokemon y agregarlo a un ArrayList. 
                 Integer.parseInt(pts[3]), Integer.parseInt(pts[4]), Integer.parseInt(pts[5]), 
                 Integer.parseInt(pts[6]), Integer.parseInt(pts[7]), Integer.parseInt(pts[8]), pts[9])); 
             }
-        		 Scaner.close();
+	        scaner.close();
          
 
         
-
+	        
         File fila = new File(stringdos);// Abrir el archivo de Gimnasio.txt. 
         Scanner  scann=new Scanner(fila);
             // lee gym linea linea
@@ -68,11 +68,10 @@ public class Main {
             }scanner.close();
             
             File files = new File(stringcuatro);//Abrir y leer Habitat.txt
-            Scanner Scatter=new Scanner(files);
-                // lee zonas linea linea
-                while (Scatter.hasNextLine()) 
-                	habitats.add(Scatter.nextLine());//Agregar habitat a un ArrayList.
-               
+	        Scanner scatter = new Scanner(files);
+	            while (scatter.hasNextLine())
+	                habitats.add(new Habitat(scatter.nextLine())); //Agregar habitat a un ArrayList.
+	        scatter.close();
                 
                 
                 
@@ -137,7 +136,7 @@ public class Main {
             for(Pokemon p : jugador.getPokemons()) {
                 bw.write(p.getNombre() + ";" + p.getEstado() + "\n"); 
             }
-        } catch (Exception e) {} 
+        } catch (Exception e) { System.out.println("Error al guardar la partida."); }
     }
 
     // menu principal del juego
@@ -157,24 +156,26 @@ public class Main {
             String op = sc.nextLine(); 
 
             switch(op) {
-                case "1" -> revisarEquipo(); 
-                case "2" -> capturar(); 
-                case "3" -> accesoPC(); 
-                case "4" -> retarGimnasio(); 
-                case "5" -> retarAltoMando(); 
-                case "6" -> {
-                    jugador.curarTodos(); 
-                    System.out.println("Tu equipo se ha recuperado!"); 
-                }
-                case "7" -> guardarPartida(); 
-                case "8" -> {
-                    guardarPartida(); 
-                    System.out.println("Nos vemos entrenador..."); 
-                    System.exit(0); //Opción de guardar y salir.
-                }
+	            case "1" -> revisarEquipo(); 
+	            case "2" -> capturar(); 
+	            case "3" -> accesoPC(); 
+	            case "4" -> retarGimnasio(); 
+	            case "5" -> retarAltoMando(); 
+	            case "6" -> {
+	                jugador.curarTodos(); 
+	                System.out.println("Tu equipo se ha recuperado!"); 
+	            }
+	            case "7" -> guardarPartida(); 
+	            case "8" -> {
+	                guardarPartida(); 
+	                System.out.println("Nos vemos entrenador..."); 
+	                System.exit(0); //Opción de guardar y salir.
+	            }
+		            default -> System.out.println("Opcion invalida.");
+		        }
             }
         }
-    }
+    
 
     // muestra seis pokemons principales
     private static void revisarEquipo() {
@@ -188,25 +189,29 @@ public class Main {
 
     // logica atrapar Pokemon salvaje
     private static void capturar() {
-        System.out.println("Donde deseas ir a explorar?\nZonas disponibles:"); 
-        
-        //Escoger zona para ir a capturar Pokemon.
-        System.out.print("Ingrese Zona: ");
-        int z = leerNumero(); 
-        if(z == 7) {
-        	return;
-        			}
-        if(z < 1 || z > 6) {//Cerciorarse que la opción existe.
-            System.out.println("Zona invalida");
-            return;
-        }
-        
-        String hab = habitats.get(z - 1);//Que la opción escogida tenga un indice  existente. 
+    	System.out.println("Donde deseas ir a explorar?\nZonas disponibles:");
+    	for (int i = 0; i < habitats.size(); i++)
+    	    System.out.println((i + 1) + ") " + habitats.get(i).getNombreHabitat());
+    	System.out.println((habitats.size() + 1) + ") Volver.");
+
+    	//Escoger zona para ir a capturar Pokemon.
+    	System.out.print("Ingrese Zona: ");
+    	int z = leerNumero();
+    	if(z == habitats.size() + 1) {
+    	    return;
+    	}
+    	if(z < 1 || z > habitats.size()) {
+    	    System.out.println("Zona invalida");
+    	    return;
+    	}
+
+    	Habitat hab = habitats.get(z - 1);
+    	
         ArrayList<Pokemon> posibles = new ArrayList<>(); 
         
         // filtra Pokemones por zona
         for(Pokemon p : pokedex) {
-            if(p.getHabitat().equalsIgnoreCase(hab)) posibles.add(p); 
+        	if(p.getHabitat().getNombreHabitat().equalsIgnoreCase(hab.getNombreHabitat())) posibles.add(p);
         }
         if(posibles.isEmpty()) return; // Si la opción no es válida, volver a menú principal.
         
