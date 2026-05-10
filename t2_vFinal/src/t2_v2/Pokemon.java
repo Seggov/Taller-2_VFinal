@@ -1,7 +1,7 @@
 package t2_v2;
 
 public class Pokemon {
-    //Variables del objeto.
+    //Atributos de la clase pokemon.
     private String nombre; 
     private String habitat; 
     private double prob; 
@@ -9,7 +9,7 @@ public class Pokemon {
     private String tipo; 
     private String estado; 
 
-    // crea pokemon de cero
+    // crear pokemon.
     public Pokemon(String n, String h, double p, int v, int a, int d, int ae, int de, int vel, String t) {
         this.nombre = n; 
         this.habitat = h; 
@@ -24,7 +24,7 @@ public class Pokemon {
         this.estado = "Vivo"; 
     }
     
-    // clona un bicho capturado
+    // clona un Pokemon capturado.
     public Pokemon(Pokemon otro, String estado) {
         this.nombre = otro.nombre; 
         this.habitat = otro.habitat; 
@@ -39,7 +39,7 @@ public class Pokemon {
         this.estado = estado; 
     }
 
-    // suma de los stats, que se usará en revisar equipo. 
+    // suma de los stats (Es la que se muestra en la opciónn 1 del menu principal ). 
     public int getStatsTotales() {
         return vida + ataque + defensa + ataqueEspecial + defensaEspecial + velocidad; 
     }
