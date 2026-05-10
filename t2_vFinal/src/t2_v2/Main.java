@@ -22,13 +22,6 @@ public class Main {
     // inicia todo el programa
     public static void main(String[] args) throws FileNotFoundException {
     	
-    	habitats.add("Lago");
-    	habitats.add("Cueva");
-    	habitats.add("Montaña");
-    	habitats.add("Bosque");
-    	habitats.add("Prado");
-    	habitats.add("Mar");
-    	
         cargarArchivos("Pokedex.txt","Gimnasios.txt", "Alto Mando.txt","Habitats.txt"); 
         menuInicial(); 
     }
