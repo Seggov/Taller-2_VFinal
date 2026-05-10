@@ -1,6 +1,7 @@
 package t2_v2;
 
 public class Pokemon {
+    //Variables del objeto.
     private String nombre; 
     private String habitat; 
     private double prob; 
@@ -38,15 +39,15 @@ public class Pokemon {
         this.estado = estado; 
     }
 
-    // suma todas las stats
+    // suma de los stats, que se usará en revisar equipo. 
     public int getStatsTotales() {
         return vida + ataque + defensa + ataqueEspecial + defensaEspecial + velocidad; 
     }
 
-    public String getNombre() { return nombre; } 
-    public String getTipo() { return tipo; } 
-    public String getEstado() { return estado; } 
+    public String getNombre() { return nombre; } //obtener el nombre del pokemon.
+    public String getTipo() { return tipo; } //obtener tipo del pokemon.
+    public String getEstado() { return estado; } //obtener si esta vivo o debilitado.
     public void setEstado(String e) { this.estado = e; } 
-    public double getProb() { return prob; } 
-    public String getHabitat() { return habitat; } 
+    public double getProb() { return prob; } // obtener la probabilidad de aparición.
+    public String getHabitat() { return habitat; } //Obtener el habitat del pokemon.
 }
