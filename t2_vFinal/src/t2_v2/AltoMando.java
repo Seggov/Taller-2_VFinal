@@ -3,6 +3,7 @@ package t2_v2;
 import java.util.ArrayList;
 
 public class AltoMando {
+    //Variables caracteristicas de la clase.
     private int numero; 
     private String nombre; 
     private ArrayList<String> equipoNombres; 
@@ -14,6 +15,6 @@ public class AltoMando {
         this.equipoNombres = eq; 
     }
 
-    public String getNombre() { return nombre; } 
-    public ArrayList<String> getEquipoNombres() { return equipoNombres; } 
+    public String getNombre() { return nombre; } //Obtener el nombre del alto mando.
+    public ArrayList<String> getEquipoNombres() { return equipoNombres; } //Equipo de pokemones del alto mando.
 }
