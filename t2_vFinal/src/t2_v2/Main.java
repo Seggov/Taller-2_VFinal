@@ -29,6 +29,7 @@ public class Main {
     
     // lee los txt guardados
     private static void cargarArchivos(String string, String stringdos, String stringtres, String stringcuatro) throws FileNotFoundException {
+        //Abrir el archivo pokedex y leerlo.
         File file = new File(string);
         Scanner Scaner=new Scanner(file);
         		
@@ -36,7 +37,7 @@ public class Main {
         		String Linea=Scaner.nextLine();
                 String[] pts = Linea.split(";"); 
                 
-                pokedex.add(new Pokemon(pts[0], pts[1], Double.parseDouble(pts[2]), 
+                pokedex.add(new Pokemon(pts[0], pts[1], Double.parseDouble(pts[2]),//Crear instancia de pokemon y agregarlo a un ArrayList. 
                 Integer.parseInt(pts[3]), Integer.parseInt(pts[4]), Integer.parseInt(pts[5]), 
                 Integer.parseInt(pts[6]), Integer.parseInt(pts[7]), Integer.parseInt(pts[8]), pts[9])); 
             }
@@ -45,32 +46,32 @@ public class Main {
 
         
 
-        File fila = new File(stringdos);
+        File fila = new File(stringdos);// Abrir el archivo de Gimnasio.txt. 
         Scanner  scann=new Scanner(fila);
             // lee gym linea linea
         while (scann.hasNextLine()) {
                 String[] pts = scann.nextLine().split(";"); 
                 ArrayList<String> eq = new ArrayList<>(); 
                 for(int i=4; i < pts.length; i++) eq.add(pts[i]); 
-                gimnasios.add(new Gimnasio(Integer.parseInt(pts[0]), pts[1], pts[2], eq)); 
+                gimnasios.add(new Gimnasio(Integer.parseInt(pts[0]), pts[1], pts[2], eq)); //Crear instancia de clase Gimnasio y agregarlo a un ArrayList.
             }scann.close();
          
             
-            File fil = new File(stringtres);
+            File fil = new File(stringtres);//Abrir Archivo de alto Mando.txt.
         	Scanner  scanner=new Scanner(fil);
             // lee jefes linea linea
             while (scanner.hasNextLine()) {
                 String[] pts = scanner.nextLine().split(";"); 
                 ArrayList<String> eq = new ArrayList<>(); 
                 for(int i=2; i < pts.length; i++) eq.add(pts[i]); 
-                altoMandos.add(new AltoMando(Integer.parseInt(pts[0]), pts[1], eq)); 
+                altoMandos.add(new AltoMando(Integer.parseInt(pts[0]), pts[1], eq)); //Crear instancia de alto mando y agregar a un ArrayList.
             }scanner.close();
             
-            File files = new File(stringcuatro);
+            File files = new File(stringcuatro);//Abrir y leer Habitat.txt
             Scanner Scatter=new Scanner(files);
                 // lee zonas linea linea
                 while (Scatter.hasNextLine()) 
-                	habitats.add(Scatter.nextLine());
+                	habitats.add(Scatter.nextLine());//Agregar habitat a un ArrayList.
                
                 
                 
@@ -82,7 +83,7 @@ public class Main {
 
     // carga menu de inicio
     private static void menuInicial() {
-        // repite menu hasta entrar
+        //  menu hasta entrar
         while(true) { // aqui
             System.out.println("1) Continuar."); 
             System.out.println("2) Nueva Partida."); 
@@ -100,18 +101,18 @@ public class Main {
                 System.out.println("Bienvenido " + nom + "!!"); 
                 menuPrincipal(); 
             } else if(op.equals("3")) {
-            	System.exit(0); 
+            	System.exit(0); //Salir del juego.
                 break; 
             }
         }
     }
 
-    // lee el save game
+    // lee el Jurgo guardado.
     private static void cargarPartida() {
         try (Scanner lector = new Scanner(new File("Registros.txt"))) {
             if(!lector.hasNextLine()) return; 
             String[] info = lector.nextLine().split(";"); 
-            jugador = new Jugador(info[0], info[1]); 
+            jugador = new Jugador(info[0], info[1]); //Nomber del jugador y cuantos gimnacios ha derrotado.
             
             // arma equipo del txt
             while (lector.hasNextLine()) {
@@ -169,7 +170,7 @@ public class Main {
                 case "8" -> {
                     guardarPartida(); 
                     System.out.println("Nos vemos entrenador..."); 
-                    System.exit(0); 
+                    System.exit(0); //Opción de guardar y salir.
                 }
             }
         }
@@ -185,31 +186,31 @@ public class Main {
         }
     }
 
-    // logica atrapar bicho salvaje
+    // logica atrapar Pokemon salvaje
     private static void capturar() {
         System.out.println("Donde deseas ir a explorar?\nZonas disponibles:"); 
         
-        
+        //Escoger zona para ir a capturar Pokemon.
         System.out.print("Ingrese Zona: ");
         int z = leerNumero(); 
         if(z == 7) {
         	return;
         			}
-        if(z < 1 || z > 6) {
+        if(z < 1 || z > 6) {//Cerciorarse que la opción existe.
             System.out.println("Zona invalida");
             return;
         }
         
-        String hab = habitats.get(z - 1);
+        String hab = habitats.get(z - 1);//Que la opción escogida tenga un indice  existente. 
         ArrayList<Pokemon> posibles = new ArrayList<>(); 
         
-        // filtra bichos por zona
+        // filtra Pokemones por zona
         for(Pokemon p : pokedex) {
             if(p.getHabitat().equalsIgnoreCase(hab)) posibles.add(p); 
         }
-        if(posibles.isEmpty()) return; 
+        if(posibles.isEmpty()) return; // Si la opción no es válida, volver a menú principal.
         
-        double r = rand.nextDouble(); 
+        double r = rand.nextDouble(); //Generar aleatoriedad dependiendo del porcentaje de aparición.
         double sum = 0; 
         Pokemon salvaje = posibles.get(0); 
         // ruleta para sacar bicho
@@ -225,7 +226,7 @@ public class Main {
         System.out.println("Que deseas hacer?\n1) Capturar\n2) Huir"); 
         System.out.print("Ingrese Opcion: "); 
         int c = leerNumero(); 
-        if(c == 1) {
+        if(c == 1) {//escoger capturar  pokemon.
             jugador.addPokemon(new Pokemon(salvaje, "Vivo")); 
             System.out.println(salvaje.getNombre() + " capturado con exito!!"); 
             if(jugador.getEquipo().size() <= 6) System.out.println(salvaje.getNombre() + " ha sido agregado a tu equipo!"); 
@@ -234,7 +235,7 @@ public class Main {
     
 
     // logica del pc
-    private static void accesoPC() {
+    private static void accesoPC() {// Cambiar orden de los  pokemones que se poseen. 
         ArrayList<Pokemon> lista = jugador.getPokemons(); 
         for(int i=0; i<lista.size(); i++) {
             System.out.println((i+1) + ") " + lista.get(i).getNombre()); 
@@ -258,7 +259,7 @@ public class Main {
     // logica retar un gym
     private static void retarGimnasio() {
         System.out.println("A cual Lider deseas retar??"); 
-        for(int i=0; i<gimnasios.size(); i++) {
+        for(int i=0; i<gimnasios.size(); i++) {//Mostrar cuales son los lideres de los gym, si se ha derrotado o no. 
             Gimnasio g = gimnasios.get(i); 
             System.out.println((i+1) + ") " + g.getLider() + " - Estado: " + g.getEstado()); 
         }
@@ -266,7 +267,7 @@ public class Main {
         int op = leerNumero() - 1; 
         if(op < 0 || op >= gimnasios.size()) return; 
         
-        if(op > 0) {
+        if(op > 0) {//En caso de que se trate de  desafiar a un lider de gimnasio cuando el anterior lider no ha sido derrotado, invalidandolo 
             if(!gimnasios.get(op-1).getEstado().equals("Derrotado")) {
                 System.out.println("Calmado Entrenador!!! No puedes retar a " + gimnasios.get(op).getLider() + " sin haber derrotado a los lideres anteriores!!"); 
                 System.out.println();
@@ -274,11 +275,11 @@ public class Main {
             }
         }
         
-        System.out.println("Desafiando a " + gimnasios.get(op).getLider() + "!!"); 
-        ArrayList<Pokemon> equipoRival = instanciarEquipo(gimnasios.get(op).getEquipoNombres()); 
+        System.out.println("Desafiando a " + gimnasios.get(op).getLider() + "!!"); //En caso de Desafia a un lider de gimnasio que sea el primero o que se haya derrotado al anterior.
+        ArrayList<Pokemon> equipoRival = instanciarEquipo(gimnasios.get(op).getEquipoNombres());//Se instancia equipo rival. 
         
         boolean ganaJugador = MotorCombate.pelear(jugador, equipoRival, sc); 
-        if(ganaJugador) {
+        if(ganaJugador) {//Si gana jugador  cambiar el estado del gimnasio a derrotado.
             gimnasios.get(op).setEstado("Derrotado"); 
             jugador.setUltimoLider(gimnasios.get(op).getLider()); 
             System.out.println("Derrotaste a " + gimnasios.get(op).getLider() + "!"); 
@@ -292,26 +293,26 @@ public class Main {
             if(!g.getEstado().equals("Derrotado")) ganoTodos = false; 
         }
         if(!ganoTodos) {
-            System.out.println("Aun te faltan medallas!"); 
+            System.out.println("Aun te faltan medallas!");//En caso de intentar desafiar al alto mando antes de derrotar a todos los gimnasios(No es válido). 
             return; 
         }
         
         // pelea todos los jefes
         for(AltoMando am : altoMandos) {
             System.out.println("Desafiando a " + am.getNombre() + " del Alto Mando!"); 
-            ArrayList<Pokemon> rivales = instanciarEquipo(am.getEquipoNombres()); 
-            boolean gano = MotorCombate.pelear(jugador, rivales, sc); 
+            ArrayList<Pokemon> rivales = instanciarEquipo(am.getEquipoNombres()); //Crear lista de pokemones a enfrentar
+            boolean gano = MotorCombate.pelear(jugador, rivales, sc); //Comparar los tipos de pokemones del jugador con los del ltomando para determinar quien gana. 
             if(!gano) {
-                System.out.println("Has perdido el desafio al Alto Mando..."); 
+                System.out.println("Has perdido el desafio al Alto Mando..."); //Los pokemones  tienen estado Debilitado, no se opuede seguir peleando.
                 return; 
             }
-            System.out.println("Derrotaste a " + am.getNombre() + "!"); 
+            System.out.println("Derrotaste a " + am.getNombre() + "!"); //Se derroto al alto mando.
         }
-        System.out.println("ERES EL CAMPEON DE LA REGION!!"); 
+        System.out.println("ERES EL CAMPEON DE LA REGION!!"); //Se derroto a todo el alto mando.
     }
 
     // lee numero sin caer
-    private static int leerNumero() {
+    private static int leerNumero() {//Leer la opcion ingresada por el teclado.
         try {
             return Integer.parseInt(sc.nextLine()); 
         } catch (Exception e) {
@@ -320,7 +321,7 @@ public class Main {
     }
 
     // saca pokemon de bd
-    private static Pokemon buscarEnPokedex(String nom) {
+    private static Pokemon buscarEnPokedex(String nom) {//Buscar pokemon en el pokedex y retorna nombre del pokemon.
         for(Pokemon p : pokedex) {
             if(p.getNombre().equalsIgnoreCase(nom)) return p; 
         }
