@@ -152,9 +152,3 @@ Cada combate enfrenta al jugador contra el equipo del rival, Pokémon a Pokémon
 - **Rendirse** — abandonar el combate.
 
 El jugador gana si derrota todos los Pokémon del rival. Pierde si todos los suyos quedan debilitados.
-
----
-
-## Autores
-
-Proyecto desarrollado como Taller 2 del curso de Programación Orientada a Objetos.
