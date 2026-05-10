@@ -3,7 +3,7 @@ package t2_v2;
 public class Pokemon {
     //Atributos de la clase pokemon.
     private String nombre; 
-    private String habitat; 
+    private Habitat habitat;
     private double prob; 
     private int vida, ataque, defensa, ataqueEspecial, defensaEspecial, velocidad; 
     private String tipo; 
@@ -12,7 +12,7 @@ public class Pokemon {
     // crear pokemon.
     public Pokemon(String n, String h, double p, int v, int a, int d, int ae, int de, int vel, String t) {
         this.nombre = n; 
-        this.habitat = h; 
+        this.habitat = new Habitat(h);
         this.prob = p; 
         this.vida = v; 
         this.ataque = a; 
@@ -27,7 +27,7 @@ public class Pokemon {
     // clona un Pokemon capturado.
     public Pokemon(Pokemon otro, String estado) {
         this.nombre = otro.nombre; 
-        this.habitat = otro.habitat; 
+        this.habitat = new Habitat(otro.habitat.getNombreHabitat());
         this.prob = otro.prob; 
         this.vida = otro.vida; 
         this.ataque = otro.ataque; 
@@ -49,5 +49,5 @@ public class Pokemon {
     public String getEstado() { return estado; } //obtener si esta vivo o debilitado.
     public void setEstado(String e) { this.estado = e; } 
     public double getProb() { return prob; } // obtener la probabilidad de aparición.
-    public String getHabitat() { return habitat; } //Obtener el habitat del pokemon.
+    public Habitat getHabitat() { return habitat; } //Obtener el habitat del pokemon.
 }
