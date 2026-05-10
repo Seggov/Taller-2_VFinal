@@ -11,13 +11,13 @@ import java.util.Random;
 
 public class Main {
     private static ArrayList<Pokemon> pokedex = new ArrayList<>(); 
-    private static ArrayList<String> habitats = new ArrayList<>(); 
+    private static ArrayList<String> habitats = new ArrayList<>(); //Lista de habitats donde se puede ir a capturar pokemones.
     
-    private static ArrayList<Gimnasio> gimnasios = new ArrayList<>(); 
+    private static ArrayList<Gimnasio> gimnasios = new ArrayList<>(); //Lista que albergará los gimaniso a los que se tiene que derrotar.
     private static ArrayList<AltoMando> altoMandos = new ArrayList<>(); 
-    private static Jugador jugador; 
+    private static Jugador jugador; //Se crea la instancia de jugador sin asignarle los valores de la partida todavía.
     private static Scanner sc = new Scanner(System.in); 
-    private static Random rand = new Random(); 
+    private static Random rand = new Random(); //Permite generar la aparición aleatoria de pokemones.
 
     // inicia todo el programa
     public static void main(String[] args) throws FileNotFoundException {
@@ -276,7 +276,7 @@ public class Main {
         }
         
         System.out.println("Desafiando a " + gimnasios.get(op).getLider() + "!!"); //En caso de Desafia a un lider de gimnasio que sea el primero o que se haya derrotado al anterior.
-        ArrayList<Pokemon> equipoRival = instanciarEquipo(gimnasios.get(op).getEquipoNombres());//Se instancia equipo rival. 
+        ArrayList<Pokemon> equipoRival = instanciarEquipo(gimnasios.get(op).getEquipoNombres());//Se instancia equipo rival del gimnasio. 
         
         boolean ganaJugador = MotorCombate.pelear(jugador, equipoRival, sc); 
         if(ganaJugador) {//Si gana jugador  cambiar el estado del gimnasio a derrotado.
@@ -289,7 +289,7 @@ public class Main {
     // pelea con jefes
     private static void retarAltoMando() {
         boolean ganoTodos = true; 
-        for(Gimnasio g : gimnasios) {
+        for(Gimnasio g : gimnasios) {//Recorrer los gimnasios diponibles en el juego.
             if(!g.getEstado().equals("Derrotado")) ganoTodos = false; 
         }
         if(!ganoTodos) {
@@ -314,27 +314,27 @@ public class Main {
     // lee numero sin caer
     private static int leerNumero() {//Leer la opcion ingresada por el teclado.
         try {
-            return Integer.parseInt(sc.nextLine()); 
-        } catch (Exception e) {
+            return Integer.parseInt(sc.nextLine()); //Devolver el valor como entero.
+        } catch (Exception e) {//Control de error.
             return -1; 
         }
     }
 
     // saca pokemon de bd
     private static Pokemon buscarEnPokedex(String nom) {//Buscar pokemon en el pokedex y retorna nombre del pokemon.
-        for(Pokemon p : pokedex) {
-            if(p.getNombre().equalsIgnoreCase(nom)) return p; 
+        for(Pokemon p : pokedex) {//Bucle donde se recorre todos los pokemones del juego.
+            if(p.getNombre().equalsIgnoreCase(nom)) return p; //Cuando se encuentre el que coincida se devuelve el nombre del pokemon.
         }
-        return null; 
+        return null; //Si no se encuentra coincidencia se devuelve un valor nulo.
     }
     
     // arma equipo del jefe
     private static ArrayList<Pokemon> instanciarEquipo(ArrayList<String> nombres) {
-        ArrayList<Pokemon> res = new ArrayList<>(); 
+        ArrayList<Pokemon> res = new ArrayList<>(); //Se crea lista vacia  de pokemones a los que se enfrentará el jugador. 
         for(String n : nombres) {
-            Pokemon base = buscarEnPokedex(n); 
-            if(base != null) res.add(new Pokemon(base, "Vivo")); 
+            Pokemon base = buscarEnPokedex(n); //Se instancia pokemones del equipo rival.
+            if(base != null) res.add(new Pokemon(base, "Vivo")); //Se ingresa pokemon a la lista del equipo rival.
         }
-        return res;  
+        return res; //Devolver la lista.
     }
 }
