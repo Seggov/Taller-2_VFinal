@@ -3,7 +3,7 @@ package t2_v2;
 import java.util.ArrayList;
 
 public class AltoMando {
-    //Variables caracteristicas de la clase.
+    //Atributos de la clase.
     private int numero; 
     private String nombre; 
     private ArrayList<String> equipoNombres; 
