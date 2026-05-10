@@ -15,6 +15,8 @@ public class AltoMando {
         this.equipoNombres = eq; 
     }
 
-    public String getNombre() { return nombre; } //Obtener el nombre del alto mando.
+    public int getNumero() { return numero; }     //Obtener el nombre del alto mando.
+    public String getNombre() { return nombre; }
+    
     public ArrayList<String> getEquipoNombres() { return equipoNombres; } //Equipo de pokemones del alto mando.
 }
